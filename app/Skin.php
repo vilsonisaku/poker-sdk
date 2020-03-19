@@ -45,6 +45,10 @@ Class Skin extends SkinSkeleton
 
     }
 
+    public static function getLang(){
+
+    }
+    
     /*
     *   get active skin id
     */
