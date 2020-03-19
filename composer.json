@@ -1,0 +1,20 @@
+{
+    "name": "external/helper",
+    "description": "external classes helper",
+    "authors": [
+        {
+            "name": "vilson",
+            "email": "vilsonisaku93@gmail.com"
+        }
+    ],
+    "require": {
+	    "php": "^7.2",
+        "phpunit/phpunit": "^8.5",
+        "predis/predis": "^1.1"
+     },
+    "autoload": {
+        "psr-4": {
+            "ExHelp\\": "app/"
+        }
+    }
+}
