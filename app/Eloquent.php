@@ -2,18 +2,29 @@
 
 namespace ExHelp;
 
-use ExHelp\Skin;
 use Illuminate\Support\Facades\Redis;
+use ExHelp\RedisKeys;
+use ExHelp\Lang;
 
 class Eloquent
 {
     static protected $redis_key=null;
+
+    const fillable=[];
 
     const types=[
         1=>'match', 
         2=>'outright', 
         3=>'player' 
     ];
+
+    public static function getLang(){
+        return Lang::active();
+    }
+
+    public static function getRedisKey($key){
+        return RedisKeys::get($key);
+    }
 
     static function generateId($type=""){
         $id = ( (int) (microtime(true) * 1000));
@@ -34,7 +45,7 @@ class Eloquent
     }
 
     static function updateAttributes($fillable,&$data,$params,$k_id=null){
-        $lang = Skin::getLang();
+        $lang = self::getLang();
         foreach($params as $key => $new_values){
             if( !isset($data[$key]) ) continue;
 
@@ -89,7 +100,7 @@ class Eloquent
     static function fetchDB($key=null)
     {
         $key = $key?:self::$redis_key;
-        return json_decode( Redis::get( Skin::getRedisKey($key) ), true );
+        return json_decode( Redis::get( self::getRedisKey($key) ), true );
     }
 
     static function updateDB($data,$key=null)
@@ -99,7 +110,7 @@ class Eloquent
 
         $data = is_string($data) ? $data : json_encode($data);
 
-        Redis::set( Skin::getRedisKey( $key ) , $data );
+        Redis::set( self::getRedisKey( $key ) , $data );
         
         return new self;
     }

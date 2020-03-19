@@ -3,6 +3,7 @@
 namespace ExHelp;
 
 use Illuminate\Support\Facades\Redis;
+use ExHelp\Lang;
 
 abstract class SkinSkeleton
 {
@@ -26,8 +27,6 @@ Class Skin extends SkinSkeleton
     protected static $active;
 
     protected static $all=null;
-
-    protected static $lang=0;
     
     /*
     *   get active skin
@@ -77,7 +76,13 @@ Class Skin extends SkinSkeleton
 
     public static function set($domain){
         self::$active = $domain;
-       return new self;
+
+        $langs = self::get()['locale'];
+
+        Lang::setAll($langs);
+        Lang::setDefault();
+
+        return new self;
     }
 
     public static function setFirst(){
@@ -110,7 +115,10 @@ Class Skin extends SkinSkeleton
             },1);
         }
 
-        self::$active = self::$active ? self::$active : array_key_first($skins);
+        $active = self::$active ? self::$active : array_key_first($skins);
+
+        self::set($active);
+
         self::$all = $skins;
 
         return new self;

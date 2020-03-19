@@ -1,9 +1,10 @@
 <?php
 
-namespace ExHelp\BO;
+namespace ExHelp\Constants;
 
-class RedisKeys
+class BOKeys
 {
+
     const prefix = 'backoffice_';
 
     const markets_config = 'market_config_';
@@ -18,5 +19,4 @@ class RedisKeys
 
     const market_subgroups = 'market_subgroups_';
 
-    
 }
