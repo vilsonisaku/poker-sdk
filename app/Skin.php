@@ -4,7 +4,7 @@ namespace ExHelp;
 
 use Illuminate\Support\Facades\Redis;
 
-abstract class SkinAbstract 
+abstract class SkinSkeleton
 {
     abstract static function get($domain=null);
 
@@ -15,9 +15,13 @@ abstract class SkinAbstract
     abstract static function getRedisKey($path);
 }
 
-Class Skin extends SkinAbstract
+Class Skin extends SkinSkeleton
 {
     protected static $attr=['id','prematch_ids','domain','live_ids','locale'];
+
+    const redis_key="skins_config";
+
+    const storage_file="skins.json";
 
     protected static $active;
 
@@ -91,11 +95,15 @@ Class Skin extends SkinAbstract
     */
     public static function fetch(){
 
-        $skins = json_decode( Redis::get( config('redis.keys.skins_config') ), true );
+        $skins = json_decode( Redis::get( self::redis_key ), true );
+
+        $attr = self::$attr;
 
         foreach($skins as $domain => $skin){
             $skin['domain'] = $domain;
-            $skins[ $domain ] = collect($skin)->only(self::$attr)->all();
+            $skins[ $domain ] = array_filter($skin,function($val,$key) use ($attr) {
+                    return in_array($key,$attr);
+            },1);
         }
 
         self::$active = self::$active ? self::$active : array_key_first($skins);
@@ -108,7 +116,7 @@ Class Skin extends SkinAbstract
     * backup all skins
     */
     public static function backup(){
-        \Storage::put('skins.json', json_encode( self::fetch()->all() ) );
+        \Storage::put(self::storage_file, json_encode( self::fetch()->all() ) );
     }
 
     /*
@@ -116,16 +124,19 @@ Class Skin extends SkinAbstract
     */
     public static function getBackup(){
 
-        if( !\Storage::exists('skins.json') ) {
-            echo "storage/app/skins.json   --------- not exist! \n";
+        $file = self::storage_file; 
+
+        if( !\Storage::exists( $file ) ) {
+            echo "storage/app/$file   --------- not exist! \n";
             return;
         }
 
-        echo "storage/app/skins.json\n";
-        $skins = \Storage::get('skins.json');
+        echo "storage/app/$file\n";
+        $skins = \Storage::get( $file );
+
         $skins = is_string($skins) ? $skins : json_encode($skins);
         
-        \Redis::set( config('redis.keys.skins_config') , $skins);
+        \Redis::set( self::redis_key , $skins);
     }
 
 }
