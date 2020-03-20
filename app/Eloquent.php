@@ -22,8 +22,12 @@ class Eloquent
         return Lang::active();
     }
 
-    public static function getRedisKey($key){
-        return RedisKeys::get($key);
+    public static function setRedisKey($key,$path=[],$bySkin=true){
+        self::$redis_key = RedisKeys::get($key,$path,$bySkin);
+    }
+
+    public static function getRedisKey(){
+        return self::$redis_key;
     }
 
     static function generateId($type=""){
