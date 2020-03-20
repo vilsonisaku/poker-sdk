@@ -38,7 +38,7 @@ class RedisKeys
 
         $keys = array_merge($boKeys,$cachingKeys);
 
-        if( !isset($keys) ) return null;
+        if( !isset($keys[$key]) ) return null;
 
         return self::$prefix.self::$skin_id.'_'.$keys[$key].$path;
 
