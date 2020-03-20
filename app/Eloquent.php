@@ -8,7 +8,7 @@ use ExHelp\Lang;
 
 class Eloquent
 {
-    static protected $redis_key=null;
+    protected $redis_key=null;
 
     const fillable=[];
 
@@ -22,25 +22,25 @@ class Eloquent
         return Lang::active();
     }
 
-    public static function setRedisKey($key,$path=[],$bySkin=true){
-        self::$redis_key = RedisKeys::get($key,$path,$bySkin);
+    public function setRedisKey($path=[],$bySkin=true){
+        $this->redis_key = RedisKeys::get($this->redis_key,$path,$bySkin);
     }
 
-    public static function getRedisKey(){
-        return self::$redis_key;
+    public function getRedisKey(){
+        return $this->redis_key;
     }
 
-    static function generateId($type=""){
+    public static function generateId($type=""){
         $id = ( (int) (microtime(true) * 1000));
         return $type ? ($type.'.'.$id) : $id;
     }
 
-    static function types($type=''){
+    public static function types($type=''){
         return isset( self::types[$type] )
             ? self::types[$type] : null;
     }
 
-    static function filterArrayAttr($old_values,$val){
+    public static function filterArrayAttr($old_values,$val){
         $val = is_array($val) ? $val : [$val];
         foreach($val as $k => $v){
             if( !is_string($v) && !is_int($v) ) unset( $val[$k] );
@@ -48,12 +48,12 @@ class Eloquent
         return array_values( array_unique( array_merge($old_values,$val) ) );
     }
 
-    static function updateAttributes($fillable,&$data,$params,$k_id=null){
+    public static function updateAttributes(&$data,$params,$k_id=null){
         $lang = self::getLang();
         foreach($params as $key => $new_values){
             if( !isset($data[$key]) ) continue;
 
-            foreach($fillable as $attr => $i){
+            foreach(self::fillable as $attr => $i){
 
                 if($i==='boolean' && array_key_exists($attr,$new_values) ){
                     $v = $new_values[$attr];
@@ -101,20 +101,16 @@ class Eloquent
         return $data;
     }
 
-    static function fetchDB($key=null)
+    function fetchDB()
     {
-        $key = $key?:self::$redis_key;
-        return json_decode( Redis::get( self::getRedisKey($key) ), true );
+        return json_decode( Redis::get( self::getRedisKey() ), true );
     }
 
-    static function updateDB($data,$key=null)
+    function updateDB($data)
     {
-        $key = $key?:self::$redis_key;  
-        if(!$key) return;
-
         $data = is_string($data) ? $data : json_encode($data);
 
-        Redis::set( self::getRedisKey( $key ) , $data );
+        Redis::set( self::getRedisKey() , $data );
         
         return new self;
     }
