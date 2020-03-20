@@ -4,6 +4,7 @@ namespace ExHelp;
 
 use ExHelp\Constants\BOKeys;
 use ExHelp\Constants\CachingKeys;
+use ExHelp\Filter;
 
 class RedisKeys
 {
@@ -31,16 +32,16 @@ class RedisKeys
         self::$skin_id = $id;
     }
 
-    static function get($key,$path='')
+    static function get($key,$path=[])
     {
         $boKeys = (new \ReflectionClass( BOKeys::class ) )->getConstants();
         $cachingKeys = (new \ReflectionClass( CachingKeys::class ) )->getConstants();
 
         $keys = array_merge($boKeys,$cachingKeys);
 
-        if( !isset($keys[$key]) ) return null;
+        if( !in_array($key,$keys) ) return null;
 
-        return self::$prefix.self::$skin_id.'_'.$keys[$key].$path;
+        return self::$prefix.self::$skin_id.'_'.$key.Filter::sep($path);
 
     }
 }
