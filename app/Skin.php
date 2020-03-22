@@ -32,7 +32,7 @@ Class Skin extends SkinSkeleton
     *   get active skin
     */
     public static function get($domain=null){
-        
+
         $key = $domain ? $domain : self::$active;
 
         return isset( self::$all[ $key ] ) 
@@ -48,9 +48,24 @@ Class Skin extends SkinSkeleton
     }
 
     public static function getLang(){
-
+        return Lang::active();
     }
-    
+
+    public static function setLang($lang){
+
+        $langs = self::get()['locale'];
+
+        if(empty($langs)) return null;
+
+        if( !in_array($lang,$langs) ) return null;
+
+        Lang::setAll($langs);
+        
+        Lang::setActive($lang);
+
+        return new self;
+    }
+
     /*
     *   get active skin id
     */
