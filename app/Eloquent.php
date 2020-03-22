@@ -26,6 +26,8 @@ class Eloquent
 
     public function set($data){
         $this->data = $data;
+
+        return $this;
     }
 
     public function getOrFetch(){
@@ -39,6 +41,8 @@ class Eloquent
 
     public function setRedisKey($path=[],$bySkin=true){
         $this->redis_key = RedisKeys::get($this->redis_key,$path,$bySkin);
+
+        return $this;
     }
 
     public function getRedisKey(){
@@ -128,7 +132,7 @@ class Eloquent
 
         Redis::set( self::getRedisKey() , $this->data );
         
-        return new self;
+        return $this;
     }
 
 }
