@@ -83,10 +83,8 @@ Class Skin extends SkinSkeleton
         return $skin ? $skin['id']:null;
     }
 
-    public static function getOrFetchDomain($domain=null){
-        if( self::getAll()===false ) {
-            self::fetch($domain);
-        }
+    public static function getOrFetchDomain(){
+        self::getAll();
         
         return self::$active;
     }
@@ -107,20 +105,19 @@ Class Skin extends SkinSkeleton
 
     public static function exist($domain){
 
-        if(self::getAll() === false) {
-            self::fetch();
-        }
-
         $all = self::getAll();
 
         return isset( $all[$domain] ) ? true : false;
     }
 
     public static function getAll(){
+        if( self::$all===false ) {
+            self::fetch();
+        }
         return self::$all;
     }
 
-    public static function setAll(array $skins){
+    protected static function setAll(array $skins){
         self::$all = $skins;
         return new self;
     }
