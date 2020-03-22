@@ -32,8 +32,11 @@ Class Skin extends SkinSkeleton
     *   get active skin
     */
     public static function get($domain=null){
-        $key = $domain?$domain:self::$active;
-        return isset( self::$all[ $key ] ) ? self::$all[ $key ] : null;
+        
+        $key = $domain ? $domain : self::$active;
+
+        return isset( self::$all[ $key ] ) 
+                ? self::$all[ $key ] : null;
     }
 
     public static function getOrFetch($domain=null){
@@ -74,7 +77,7 @@ Class Skin extends SkinSkeleton
         return self::$active;
     }
 
-    public static function set($domain){
+    public static function set(String $domain){
         self::$active = $domain;
 
         $langs = self::get()['locale'];
@@ -94,7 +97,7 @@ Class Skin extends SkinSkeleton
         return self::$all;
     }
 
-    public static function setAll($skins){
+    public static function setAll(array $skins){
         self::$all = $skins;
         return new self;
     }
@@ -115,11 +118,12 @@ Class Skin extends SkinSkeleton
             },1);
         }
 
-        $active = self::$active ? self::$active : array_key_first($skins);
+        $domains = array_keys($skins);
 
-        self::set($active);
-
-        self::$all = $skins;
+        if( !in_array( self::$active,$domains) ){
+            self::$active=null;
+        }
+        self::setAll( $skins );
 
         return new self;
     }
