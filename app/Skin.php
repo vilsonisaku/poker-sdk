@@ -26,7 +26,7 @@ Class Skin extends SkinSkeleton
 
     protected static $active;
 
-    protected static $all=null;
+    protected static $all=false;
     
     /*
     *   get active skin
@@ -60,7 +60,7 @@ Class Skin extends SkinSkeleton
         if( !in_array($lang,$langs) ) return null;
 
         Lang::setAll($langs);
-        
+
         Lang::setActive($lang);
 
         return new self;
@@ -84,15 +84,17 @@ Class Skin extends SkinSkeleton
     }
 
     public static function getOrFetchDomain($domain=null){
-        if(!self::$all) {
+        if( self::getAll()===false ) {
             self::fetch($domain);
         }
-        if($domain) self::$active = $domain;
         
         return self::$active;
     }
 
     public static function set(String $domain){
+
+        if( !self::exist($domain) ) return null;
+
         self::$active = $domain;
 
         $langs = self::get()['locale'];
@@ -103,12 +105,18 @@ Class Skin extends SkinSkeleton
         return new self;
     }
 
-    public static function setFirst(){
-        self::$active = array_key_first(self::$all);
-       return new self;
+    public static function exist($domain){
+
+        if(self::getAll() === false) {
+            self::fetch();
+        }
+
+        $all = self::getAll();
+
+        return isset( $all[$domain] ) ? true : false;
     }
 
-    public static function all(){
+    public static function getAll(){
         return self::$all;
     }
 
