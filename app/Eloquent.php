@@ -8,7 +8,9 @@ use ExHelp\Lang;
 
 class Eloquent
 {
-    protected $redis_key=null;
+    protected $redis_key;
+
+    protected $data=false;
 
     const fillable=[];
 
@@ -17,6 +19,19 @@ class Eloquent
         2=>'outright', 
         3=>'player' 
     ];
+
+    public function get(){
+        return $this->data;
+    }
+
+    public function set($data){
+        $this->data = $data;
+    }
+
+    public function getOrFetch(){
+        if( $this->data === false ) $this->fetch();
+        return $this->data;
+    }
 
     public static function getLang(){
         return Lang::active();
@@ -101,16 +116,17 @@ class Eloquent
         return $data;
     }
 
-    function fetchDB()
+    function fetch()
     {
-        return json_decode( Redis::get( self::getRedisKey() ), true );
+        $this->data = json_decode( Redis::get( self::getRedisKey() ), true );
+        return $this;
     }
 
-    function updateDB($data)
+    function update( $params=[] )
     {
-        $data = is_string($data) ? $data : json_encode($data);
+        self::updateAttributes($this->data, $params);
 
-        Redis::set( self::getRedisKey() , $data );
+        Redis::set( self::getRedisKey() , $this->data );
         
         return new self;
     }
