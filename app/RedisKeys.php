@@ -41,9 +41,9 @@ class RedisKeys
 
         if( !in_array($key,$keys) ) return null;
 
-        $skin_id = $bySkin? self::getSkinId().'_' : '';
+        $skin_id = $bySkin? static::getSkinId().'_' : '';
 
-        return self::$prefix. $skin_id. $key. Filter::sep($path);
+        return static::$prefix. $skin_id. $key. Filter::sep($path);
 
     }
 }

@@ -20,6 +20,7 @@ class Eloquent
         3=>'player' 
     ];
 
+
     public function get(){
         return $this->data;
     }
