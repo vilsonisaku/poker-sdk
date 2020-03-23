@@ -76,7 +76,7 @@ Class Skin extends SkinSkeleton
     /*
     *   get or fetch skin id
     */
-    public static function getOrFetchId($domain=null){
+    public static function getOrFetchId(){
 
         $skin = static::getOrFetch();
         
