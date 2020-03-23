@@ -39,7 +39,7 @@ Class Skin extends SkinSkeleton
                 ? self::$all[ $key ] : null;
     }
 
-    public static function getOrFetch($domain=null){
+    public static function getOrFetch(){
 
     }
 
