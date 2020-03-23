@@ -135,9 +135,9 @@ class Eloquent
         return $this;
     }
 
-    function update( $params=[] , $k_id=null )
+    function update(array $params=[] , $k_id=null )
     {
-        $this->data = self::updateAttributes($this->data, $params, $k_id );
+        $this->data = self::updateAttributes($this->getOrFetch(), $params, $k_id );
 
         Redis::set( static::getRedisKey() , json_encode($this->data) );
         
