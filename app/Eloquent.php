@@ -93,7 +93,7 @@ class Eloquent
                 if( !isset($new_values[$attr]) ) continue;
 
                 if($i=='lang') {
-                    $data[$key][$attr][ $lang ] = $new_values[$attr];
+                    $data[$key][$attr][ $lang ] = (string) $new_values[$attr];
 
                 } else if($i=='integer'){
 
