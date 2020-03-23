@@ -111,9 +111,6 @@ Class Skin extends SkinSkeleton
     }
 
     public static function getAll(){
-        if( self::$all===false ) {
-            self::fetch();
-        }
         return self::$all;
     }
 
