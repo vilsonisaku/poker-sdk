@@ -32,7 +32,7 @@ class RedisKeys
         self::$skin_id = $id;
     }
 
-    static function get($key,$path=[],$bySkin=true)
+    static function get($key,$path='',$bySkin=true)
     {
         $boKeys = (new \ReflectionClass( BOKeys::class ) )->getConstants();
         $cachingKeys = (new \ReflectionClass( CachingKeys::class ) )->getConstants();
@@ -43,7 +43,7 @@ class RedisKeys
 
         $skin_id = $bySkin? static::getSkinId().'_' : '';
 
-        return static::$prefix. $skin_id. $key. Filter::sep($path);
+        return static::$prefix. $skin_id. $key. $path;
 
     }
 }
