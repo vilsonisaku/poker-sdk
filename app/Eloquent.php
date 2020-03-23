@@ -11,7 +11,7 @@ class Eloquent
     protected $redis_key;
 
     protected $key='';
-    protected $bySkin=false;
+    protected $bySkin=true;
 
     protected $data=false;
 
@@ -131,7 +131,7 @@ class Eloquent
 
     function fetch()
     {
-        $this->data = json_decode( Redis::get( self::getRedisKey() ), true );
+        $this->data = json_decode( Redis::get( static::getRedisKey() ), true );
         return $this;
     }
 
@@ -139,7 +139,7 @@ class Eloquent
     {
         self::updateAttributes($this->data, $params, $k_id );
 
-        Redis::set( self::getRedisKey() , $this->data );
+        Redis::set( static::getRedisKey() , $this->data );
         
         return $this;
     }
