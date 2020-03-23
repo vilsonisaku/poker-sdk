@@ -81,7 +81,7 @@ class Eloquent
         foreach($params as $key => $new_values){
             if( !isset($data[$key]) ) continue;
 
-            foreach(self::fillable as $attr => $i){
+            foreach(static::fillable as $attr => $i){
 
                 if($i==='boolean' && array_key_exists($attr,$new_values) ){
                     $v = $new_values[$attr];
