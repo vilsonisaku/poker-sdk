@@ -10,6 +10,9 @@ class Eloquent
 {
     protected $redis_key;
 
+    protected $key='';
+    protected $bySkin=false;
+
     protected $data=false;
 
     const fillable=[];
@@ -41,13 +44,18 @@ class Eloquent
     }
 
     public function setRedisKey($path=[],$bySkin=true){
-        $this->redis_key = RedisKeys::get($this->redis_key,$path,$bySkin);
-
+        $this->key = Filter::sep($path);
+        $this->bySkin = $bySkin;
         return $this;
     }
 
     public function getRedisKey(){
-        return $this->redis_key;
+        return RedisKeys::get($this->redis_key,$this->key,$this->bySkin);
+    }
+
+    public function key($id=null){
+        if(!$id) return $this->key;
+        return Filter::sep( [$this->key, $id ]);
     }
 
     public static function generateId($type=""){
