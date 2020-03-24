@@ -79,7 +79,7 @@ class Eloquent
     public static function updateAttributes(&$data,$params,$k_id=null){
         $lang = self::getLang();
         foreach($params as $key => $new_values){
-            if( !isset($data[$key]) ) continue;
+            if( !array_key_exists($key,$data) ) continue;
 
             foreach(static::fillable as $attr => $i){
 
@@ -90,7 +90,7 @@ class Eloquent
                     }
                     continue;
                 }
-                if( !isset($new_values[$attr]) ) continue;
+                if( !array_key_exists($attr,$new_values) ) continue;
 
                 if($i=='lang') {
                     $data[$key][$attr][ $lang ] = (string) $new_values[$attr];
