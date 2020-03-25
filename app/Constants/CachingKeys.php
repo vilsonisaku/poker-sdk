@@ -32,4 +32,9 @@ class CachingKeys
 
     const live_tmp_events = 'live_tmp_events';
 
+
+    const microgame_casino_games = 'microgame_casino_games';
+
+    const microgame_livecasino_games = 'microgame_livecasino_games';
+
 }
