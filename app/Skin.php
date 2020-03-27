@@ -4,6 +4,7 @@ namespace ExHelp;
 
 use Illuminate\Support\Facades\Redis;
 use ExHelp\Lang;
+use ExHelp\RedisKeys;
 
 abstract class SkinSkeleton
 {
@@ -99,6 +100,8 @@ Class Skin extends SkinSkeleton
 
         Lang::setAll($langs);
         Lang::setDefault();
+
+        RedisKeys::setSkinId( static::getId() );
 
         return new self;
     }

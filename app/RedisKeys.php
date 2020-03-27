@@ -4,23 +4,22 @@ namespace ExHelp;
 
 use ExHelp\Constants\BOKeys;
 use ExHelp\Constants\CachingKeys;
-use ExHelp\Filter;
 
 class RedisKeys
 {
     static protected $skin_id;
 
-    static protected $prefix='';
+    // static protected $prefix='';
 
-    static function getPrefix()
-    {
-        return self::$prefix;
-    }
+    // static function getPrefix()
+    // {
+    //     return self::$prefix;
+    // }
 
-    static function setPrefix($prefix)
-    {
-        self::$prefix = $prefix;
-    }
+    // static function setPrefix($prefix)
+    // {
+    //     self::$prefix = $prefix;
+    // }
 
     static function getSkinId()
     {
@@ -43,7 +42,7 @@ class RedisKeys
 
         $skin_id = $bySkin? static::getSkinId().'_' : '';
 
-        return static::$prefix. $skin_id. $key. $path;
+        return $skin_id. $key. $path;
 
     }
 }
