@@ -9,17 +9,6 @@ class RedisKeys
 {
     static protected $skin_id;
 
-    // static protected $prefix='';
-
-    // static function getPrefix()
-    // {
-    //     return self::$prefix;
-    // }
-
-    // static function setPrefix($prefix)
-    // {
-    //     self::$prefix = $prefix;
-    // }
 
     static function getSkinId()
     {
@@ -36,13 +25,16 @@ class RedisKeys
         $boKeys = (new \ReflectionClass( BOKeys::class ) )->getConstants();
         $cachingKeys = (new \ReflectionClass( CachingKeys::class ) )->getConstants();
 
-        $keys = array_merge($boKeys,$cachingKeys);
-
-        if( !in_array($key,$keys) ) return null;
+        $keys = [$boKeys,$cachingKeys];
 
         $skin_id = $bySkin? static::getSkinId().'_' : '';
 
-        return $skin_id. $key. $path;
+        foreach($keys as $appKeys){
 
+            if( !in_array($key,$appKeys) ) continue;
+
+            return $appKeys['prefix'].$skin_id. $key. $path;
+        }
+        return null;
     }
 }

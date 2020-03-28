@@ -6,35 +6,34 @@ class CachingKeys
 {
     const prefix = '';
 
-    const prematch_navbar = self::prefix.'prematch_navbar';
+    const prematch_navbar =  'prematch_navbar';
 
-    const prematch_all_filtered = self::prefix.'prematch_events_id_name';
+    const prematch_all_filtered =  'prematch_events_id_name';
 
-    const prematch_event = self::prefix.'prematch_event_';
+    const prematch_event =  'prematch_event_';
 
-    const prematch_tournament = self::prefix.'prematch_events_tournament_';
+    const prematch_tournament =  'prematch_events_tournament_';
 
-    const prematch_lastminute = self::prefix.'prematch_lastminute';
+    const prematch_lastminute =  'prematch_lastminute';
 
-    const prematch_overrided_odds = self::prefix.'event_market_odds';
-
-    
-
-    const market_config = self::prefix.'skin_config';
-
-    const market_groups = self::prefix.'market_groups';
+    const prematch_overrided_odds =  'event_market_odds';
 
 
 
-    const live_navbar = self::prefix.'live_navbar';
+    const market_config =  'skin_config';
 
-    const live_events = self::prefix.'live_events';
-
-    const live_tmp_events = self::prefix.'live_tmp_events';
+    const market_groups =  'market_groups';
 
 
-    const microgame_casino_games = self::prefix.'microgame_casino_games';
 
-    const microgame_livecasino_games = self::prefix.'microgame_livecasino_games';
+    const live_navbar =  'live_navbar';
 
+    const live_events =  'live_events';
+
+    const live_tmp_events =  'live_tmp_events';
+
+
+    const microgame_casino_games =  'microgame_casino_games';
+
+    const microgame_livecasino_games =  'microgame_livecasino_games';
 }
