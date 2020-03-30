@@ -78,12 +78,14 @@ class Eloquent
         return array_values( array_unique( array_merge($old_values,$val) ) );
     }
 
-    public static function updateAttributes(&$data,$params,$k_id=null){
+    public static function updateAttributes(&$data,$params,$k_id=null,$childFillable=null){
         $lang = self::getLang();
         foreach($params as $key => $new_values){
             if( !array_key_exists($key,$data) ) continue;
 
-            foreach(static::fillable as $attr => $i){
+            $fillable = $childFillable?:static::fillable;
+
+            foreach($fillable as $attr => $i){
 
                 if($i==='boolean' && array_key_exists($attr,$new_values) ){
                     $v = $new_values[$attr];
@@ -122,7 +124,7 @@ class Eloquent
                             }
                         }
                         if($index!==null)
-                            self::updateAttributes($i, $data[$key][$attr], [ $index => $new_values[$attr] ] );
+                            self::updateAttributes($child, $data[$key][$attr], [ $index => $new_values[$attr] ] , $i );
 
                     }
                 }
