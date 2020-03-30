@@ -92,6 +92,8 @@ Class Skin extends SkinSkeleton
 
     public static function set(String $domain){
 
+        if(self::$all===false) self::fetch();
+
         if( !self::exist($domain) ) return null;
 
         self::$active = $domain;

@@ -5,9 +5,11 @@ namespace ExHelp;
 use Illuminate\Support\Facades\Redis;
 use ExHelp\RedisKeys;
 use ExHelp\Lang;
+use ExHelp\Filter;
 
 class Eloquent
 {
+
     protected $redis_key;
 
     protected $key='';
@@ -60,7 +62,7 @@ class Eloquent
 
     public static function generateId($type=""){
         $id = ( (int) (microtime(true) * 1000));
-        return $type ? ($type.'.'.$id) : $id;
+        return $type ? Filter::sep([$type,$id]) : $id;
     }
 
     public static function types($type=''){
