@@ -92,7 +92,7 @@ Class Skin extends SkinSkeleton
 
     public static function set(String $domain){
 
-        if(self::$all===false) self::fetch();
+        self::fetchIfNot();
 
         if( !self::exist($domain) ) return null;
 
@@ -147,6 +147,15 @@ Class Skin extends SkinSkeleton
         }
         self::setAll( $skins );
 
+        return new self;
+    }
+
+    public static function fetchIfNot(){
+
+        if( self::$all === false) {
+
+            self::fetch();
+        }
         return new self;
     }
 
