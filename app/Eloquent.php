@@ -115,7 +115,7 @@ class Eloquent
                     $child = $data[$key][$attr];
 
                     if(is_object($child)){
-                        self::updateAttributes($attr, $data[$key][$attr][ $id ], $new_values[$attr] );
+                        self::updateAttributes($data[$key][$attr][ $id ], $new_values[$attr],null,$attr );
                     } else {
                         $index=null;
                         foreach($child as $c => $child_data){
@@ -124,7 +124,7 @@ class Eloquent
                             }
                         }
                         if($index!==null)
-                            self::updateAttributes($child, $data[$key][$attr], [ $index => $new_values[$attr] ] , $i );
+                            self::updateAttributes($data[$key][$attr], [ $index => $new_values[$attr] ] ,null ,$i );
 
                     }
                 }
