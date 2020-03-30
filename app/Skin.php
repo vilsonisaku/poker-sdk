@@ -75,7 +75,7 @@ Class Skin extends SkinSkeleton
     }
 
     /*
-    *   get or fetch skin id
+    *   get or fetch skin id from (headers or session)
     */
     public static function getOrFetchId(){
 
@@ -84,12 +84,19 @@ Class Skin extends SkinSkeleton
         return $skin ? $skin['id']:null;
     }
 
+    /*
+    *   get or fetch domain from (headers or session)
+    */
     public static function getOrFetchDomain(){
-        self::getAll();
+
+        static::getOrFetch();
         
         return self::$active;
     }
 
+    /*
+    *   fetch once and set the active domain
+    */
     public static function set(String $domain){
 
         self::fetchIfNot();
