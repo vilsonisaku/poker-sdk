@@ -151,4 +151,8 @@ class Eloquent
         return $this;
     }
 
+    function save(){
+        $this->set($this->data)->update();
+        return $this;
+    }
 }

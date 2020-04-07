@@ -138,6 +138,8 @@ Class Skin extends SkinSkeleton
 
         $skins = json_decode( Redis::get( self::redis_key ), true );
 
+        if(!$skins) return;
+
         $attr = self::$attr;
 
         foreach($skins as $domain => $skin){
