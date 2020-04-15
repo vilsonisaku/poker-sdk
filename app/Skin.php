@@ -53,7 +53,7 @@ Class Skin extends SkinSkeleton
     }
 
     public static function getLangNames(){
-        return collect( self::get()['locale'] )->flatten()->all();
+        return collect( self::get()['locale'] )->pluck('name')->all();
     }
 
     public static function setLang($lang){
