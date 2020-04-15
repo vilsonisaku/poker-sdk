@@ -54,7 +54,7 @@ Class Skin extends SkinSkeleton
 
     public static function setLang($lang){
 
-        $langs = self::get()['locale'];
+        $langs = collect( self::get()['locale'] )->flatten()->all();
 
         if(empty($langs)) return null;
 
