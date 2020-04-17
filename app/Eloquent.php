@@ -46,7 +46,7 @@ class Eloquent
     }
 
     public function setRedisKey($path=[],$bySkin=true){
-        $this->key = Filter::sep($path);
+        $this->key = Filter::sep( array_filter($path) );
         $this->bySkin = $bySkin;
         return $this;
     }
