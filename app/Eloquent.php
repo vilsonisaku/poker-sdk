@@ -155,4 +155,36 @@ class Eloquent
         $this->set($this->data)->update();
         return $this;
     }
+
+    /*
+    *  flush current key redis (BO)
+    */
+    function flush(){
+        $start_key = $this->getRedisKey();
+        $keys = Redis::keys( $start_key."*" );
+
+        $length = strlen( config('database.redis.options.prefix') );
+
+        foreach($keys as $key){
+            Redis::del( substr($key,$length) );
+        }
+
+        return $keys;
+    }
+
+
+    /*
+    *  delete item on redis (BO)
+    */
+    function delete($id)
+    {
+        $data = $this->getOrFetch()?:[];
+
+        unset( $data[ $id ] );
+
+        $this->set($data)->update();
+
+        return true;
+    }
+
 }
