@@ -156,6 +156,35 @@ class Eloquent
         return $this;
     }
 
+
+
+    /*
+    *  get item on redis (BO)
+    */
+    function getItem($id)
+    {
+        $data = $this->getOrFetch()?:[];
+
+        if( !isset( $data[ $id ] ) ) return null;
+
+        return $data[ $id ];
+    }
+
+    /*
+    *  set item on redis (BO)
+    */
+    function setItem($id,$item)
+    {
+        $data = $this->getOrFetch()?:[];
+
+        $data[ $id ] = $item;
+
+        $this->set($data);
+
+        return $this;
+    }
+
+    
     /*
     *  flush current key redis (BO)
     */
