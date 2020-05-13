@@ -26,7 +26,7 @@ class RedisKeys
         $cachingKeys = (new \ReflectionClass( CachingKeys::class ) )->getConstants();
 
         $keys = [$boKeys,$cachingKeys];
-
+        
         $skin_id = $bySkin? static::getSkinId().'_' : '';
 
         foreach($keys as $appKeys){

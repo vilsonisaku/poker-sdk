@@ -180,6 +180,8 @@ class Eloquent
     {
         $data = $this->getOrFetch()?:[];
 
+        if( !isset( $data[ $id ] ) ) return false;
+        
         unset( $data[ $id ] );
 
         $this->set($data)->update();
