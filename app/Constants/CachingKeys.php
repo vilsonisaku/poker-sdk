@@ -31,6 +31,8 @@ class CachingKeys
     const live_events =  'live_events';
 
     const live_tmp_events =  'live_tmp_events';
+    
+    const live_tmp_event =  'live_tmp_event_';
 
     const live_statistics =  'live_statistics';
 
