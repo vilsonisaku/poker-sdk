@@ -39,8 +39,10 @@ class CachingKeys
     
 
     const microgame_casino_games =  'microgame_casino_games';
-    
+
     const microgame_mobile_casino_games =  'microgame_mobile_casino_games';
 
     const microgame_livecasino_games =  'microgame_livecasino_games';
+
+    const microgame_mobile_livecasino_games =  'microgame_mobile_livecasino_games';
 }
