@@ -12,6 +12,8 @@ class CachingKeys
 
     const prematch_event =  'prematch_event_';
 
+    const prematch_empty_event =  'prematch_empty_event_';
+
     const prematch_tournament =  'prematch_events_tournament_';
 
     const prematch_lastminute =  'prematch_lastminute';
