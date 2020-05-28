@@ -38,6 +38,7 @@ class CachingKeys
 
     const live_statistics =  'live_statistics';
 
+    const live_calendar_events = 'live_calendar_events';
     
 
     const microgame_casino_games =  'microgame_casino_games';
