@@ -134,7 +134,7 @@ class Eloquent
 
     function fetch()
     {
-        $this->data = json_decode( Redis::get( static::getRedisKey() ), true );
+        $this->data = json_decode( Redis::get( $this->getRedisKey() ), true );
         return $this;
     }
 
@@ -145,7 +145,7 @@ class Eloquent
 
         $this->data = $data;
 
-        Redis::set( static::getRedisKey() , json_encode($data) );
+        Redis::set( $this->getRedisKey() , json_encode($data) );
         
         return $this;
     }
