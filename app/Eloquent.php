@@ -9,11 +9,11 @@ use ExHelp\Filter;
 
 class Eloquent
 {
+    const bySkin=true;
 
-    protected $redis_key;
+    const redis_key="";
 
     protected $key='';
-    protected $bySkin=true;
 
     protected $data=false;
 
@@ -45,14 +45,13 @@ class Eloquent
         return Lang::active();
     }
 
-    public function setRedisKey($path=[],$bySkin=true){
+    public function setRedisKey($path=[]){
         $this->key = Filter::sep( array_filter($path) );
-        $this->bySkin = $bySkin;
         return $this;
     }
 
     public function getRedisKey(){
-        return RedisKeys::get($this->redis_key,$this->key,$this->bySkin);
+        return RedisKeys::get(static::redis_key,$this->key,static::bySkin);
     }
 
     public function key($id=null){
