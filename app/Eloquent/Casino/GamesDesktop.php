@@ -5,7 +5,7 @@ namespace ExHelp\Eloquent\Casino;
 use ExHelp\Eloquent;
 use ExHelp\Constants\CachingKeys;
 
-class Games extends Eloquent
+class GamesDesktop extends Eloquent
 {
     const bySkin=false;
 
