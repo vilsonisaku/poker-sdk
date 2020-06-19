@@ -19,6 +19,8 @@ class Eloquent
 
     protected $ex=false;
 
+    protected $default=false;
+
     const fillable=[];
 
     const types=[
@@ -29,6 +31,19 @@ class Eloquent
 
     function __toString() {
         return $this->getRedisKey();
+    }
+
+    function setDefault($default){
+        $this->default = $default;
+    }
+
+    /*
+    *   get new instance from default skin
+    */
+    static function getDefault($params=[]){
+        $model = new static(...$params);
+        $model->setDefault(true);
+        return $model;
     }
 
     public function get(){
@@ -55,9 +70,20 @@ class Eloquent
         return $this;
     }
 
+
+    /*
+    *   get model redis key
+    */
     public function getRedisKey(){
+        if($this->default){
+            return RedisKeys::getDefault(static::redis_key,$this->key);
+        }
         return RedisKeys::get(static::redis_key,$this->key,static::bySkin);
     }
+
+    // public function getRedisKey(){
+    //     return RedisKeys::get(static::redis_key,$this->key,static::bySkin);
+    // }
 
     public function key($id=null){
         if(!$id) return $this->key;
@@ -68,7 +94,7 @@ class Eloquent
     *   get base key by skin. ex: backoffice_10_navbar_tournament_
     */
     static function getBaseKey(){
-        return Keys::get(static::redis_key,'',static::bySkin);
+        return RedisKeys::get(static::redis_key,'',static::bySkin);
     }
 
     static function getLangValue($item){
@@ -79,7 +105,7 @@ class Eloquent
             return "";
         }
     }
-    
+
     /*
     *   get all data from base key, by skin
     */

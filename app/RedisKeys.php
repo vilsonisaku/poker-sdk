@@ -4,6 +4,7 @@ namespace ExHelp;
 
 use ExHelp\Constants\BOKeys;
 use ExHelp\Constants\CachingKeys;
+use ExHelp\Skin;
 
 class RedisKeys
 {
@@ -20,12 +21,16 @@ class RedisKeys
         self::$skin_id = $id;
     }
 
-    static function get($key,$path='',$bySkin=true)
-    {
+    static function keys(){
         $boKeys = (new \ReflectionClass( BOKeys::class ) )->getConstants();
         $cachingKeys = (new \ReflectionClass( CachingKeys::class ) )->getConstants();
 
-        $keys = [$boKeys,$cachingKeys];
+        return [$boKeys,$cachingKeys];
+    }
+
+    static function get($key,$path='',$bySkin=true)
+    {
+        $keys = static::keys();
         
         $skin_id = $bySkin? static::getSkinId().'_' : '';
 
@@ -40,12 +45,9 @@ class RedisKeys
 
     static function getDefault($key,$path='')
     {
-        $boKeys = (new \ReflectionClass( BOKeys::class ) )->getConstants();
-        $cachingKeys = (new \ReflectionClass( CachingKeys::class ) )->getConstants();
-
-        $keys = [$boKeys,$cachingKeys];
+        $keys = static::keys();
         
-        $skin_id = Skin::getDefault()['id'].'_';
+        $skin_id = Skin::default_skin_id.'_';
 
         foreach($keys as $appKeys){
 
