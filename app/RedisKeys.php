@@ -37,4 +37,22 @@ class RedisKeys
         }
         return null;
     }
+
+    static function getDefault($key,$path='')
+    {
+        $boKeys = (new \ReflectionClass( BOKeys::class ) )->getConstants();
+        $cachingKeys = (new \ReflectionClass( CachingKeys::class ) )->getConstants();
+
+        $keys = [$boKeys,$cachingKeys];
+        
+        $skin_id = Skin::getDefault()['id'].'_';
+
+        foreach($keys as $appKeys){
+
+            if( !in_array($key,$appKeys) ) continue;
+
+            return $appKeys['prefix'].$skin_id. $key. $path;
+        }
+        return null;
+    }
 }

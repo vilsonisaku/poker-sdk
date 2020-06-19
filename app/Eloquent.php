@@ -17,6 +17,8 @@ class Eloquent
 
     protected $data=false;
 
+    protected $ex=false;
+
     const fillable=[];
 
     const types=[
@@ -25,6 +27,9 @@ class Eloquent
         3=>'player' 
     ];
 
+    function __toString() {
+        return $this->getRedisKey();
+    }
 
     public function get(){
         return $this->data;
@@ -59,6 +64,91 @@ class Eloquent
         return Filter::sep( [$this->key, $id ]);
     }
 
+    /*
+    *   get base key by skin. ex: backoffice_10_navbar_tournament_
+    */
+    static function getBaseKey(){
+        return Keys::get(static::redis_key,'',static::bySkin);
+    }
+
+    static function getLangValue($item){
+        $lang = Skin::getLang();
+        if( isset($item[$lang]) ){
+            return $item[$lang];
+        } else {
+            return "";
+        }
+    }
+    
+    /*
+    *   get all data from base key, by skin
+    */
+    static function getAll(){
+
+        $keys_ids = static::getKeysIds();
+
+        $all = [];
+
+        foreach($keys_ids as $ids){
+            $all[] = new static( ...$ids );
+        }
+
+        return $all;
+    }
+
+    /*
+    *   get all redis keys from base key
+    */
+    static function getAllRedisKeys(){
+
+        $base_key = static::getBaseKey();
+
+        $keys = Redis::keys($base_key."*");
+
+        $length = strlen( config('database.redis.options.prefix') );
+
+        foreach($keys as $i => $key){
+            $keys[$i] = substr($key,$length);
+        }
+
+        return $keys;
+    }
+
+    /*
+    *   get all ids from base key
+    */
+    static function getKeysIds(){
+
+        $keys = static::getAllRedisKeys();
+
+        foreach($keys as $i => $key){
+            
+            $keys[$i] = static::getKeyIds($key);
+        }
+
+        return $keys;
+    }
+
+    /*
+    *   get ids from an single redis key
+    */
+    static function getKeyIds($key){
+
+        $base_key = static::getBaseKey();
+
+        $length = strlen( $base_key );
+
+        $ids = substr($key,$length);
+        $ids = $ids ? Filter::sep( $ids ) : [];
+
+        if( isset($ids[1]) ) {
+            $ids[1] = Filter::sep( [ $ids[0],$ids[1] ] );
+            array_shift($ids);
+        }
+        
+        return $ids;
+    }
+
     public static function generateId($type=""){
         $id = ( (int) (microtime(true) * 1000));
         return $type ? Filter::sep([$type,$id]) : $id;
@@ -67,6 +157,19 @@ class Eloquent
     public static function types($type=''){
         return isset( self::types[$type] )
             ? self::types[$type] : null;
+    }
+
+    /*
+    *  get as collection
+    */
+    function collect($id=null)
+    {
+        if($id!==null){
+            $data = $this->getItem($id)?:[];
+        } else {
+            $data = $this->getOrFetch()?:[];
+        }
+        return collect($data);
     }
 
     public static function filterArrayAttr($old_values,$val){
@@ -141,12 +244,16 @@ class Eloquent
     function update(array $params=[] , $k_id=null )
     {
         $data = $this->getOrFetch();
-        self::updateAttributes($data, $params, $k_id );
+        // self::updateAttributes($data, $params, $k_id );
 
         $this->data = $data;
 
-        Redis::set( $this->getRedisKey() , json_encode($data) );
-        
+        if($this->ex !== false){
+            Redis::set( $this->getRedisKey() , json_encode($data),'EX',$this->ex );
+        } else {
+            Redis::set( $this->getRedisKey() , json_encode($data) );
+        }
+
         return $this;
     }
 
@@ -183,23 +290,59 @@ class Eloquent
         return $this;
     }
 
+    function getExpire(){
+        return $this->ex;
+    }
+
+    function setExpire($ex){
+        $this->ex = $ex;
+    }
     
     /*
-    *  flush current key redis (BO)
+    *   check if current item is active or not
+    */
+    function isActive($id,$key='active'){
+
+        $list = $this->getOrFetch()?:[];
+
+        if( !isset($list[$id]) ) return false;
+
+        if( array_key_exists($key,$list[$id]) ){
+
+            if(!$list[$id][$key]) return false;
+
+        } else {
+            return false;
+        }
+        return true;
+    }
+
+
+    /*
+    *   flush current key
     */
     function flush(){
-        $start_key = $this->getRedisKey();
-        $keys = Redis::keys( $start_key."*" );
+        $key = $this->getRedisKey();
 
-        $length = strlen( config('database.redis.options.prefix') );
+        Redis::del( $key );
+
+        return $key;
+    }
+
+
+    /*
+    *   flush all data from base key
+    */
+    static function flushAll(){
+
+        $keys = static::getAllRedisKeys();
 
         foreach($keys as $key){
-            Redis::del( substr($key,$length) );
+            Redis::del( $key );
         }
 
         return $keys;
     }
-
 
     /*
     *  delete item on redis (BO)

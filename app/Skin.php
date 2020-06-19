@@ -21,6 +21,8 @@ Class Skin extends SkinSkeleton
 {
     protected static $attr=['id','prematch_ids','domain','live_ids','locale'];
 
+    const default_skin_id = 10;
+
     const redis_key="skins_config";
 
     const storage_file="skins.json";
@@ -29,6 +31,14 @@ Class Skin extends SkinSkeleton
 
     protected static $all=false;
     
+
+    public static function getDefault(){
+        if( self::$all === false) {
+            self::fetch();
+        }
+        return self::firstById(static::default_skin_id);
+    }
+
     /*
     *   get active skin
     */
@@ -76,7 +86,10 @@ Class Skin extends SkinSkeleton
     *   get active skin id
     */
     public static function getId(){
-        return self::$all[ self::$active ]['id'];
+
+        $is = isset(self::$all[ self::$active ]);
+
+        return $is ? self::$all[ self::$active ]['id'] : null;
     }
 
     /*
@@ -134,6 +147,37 @@ Class Skin extends SkinSkeleton
     protected static function setAll(array $skins){
         self::$all = $skins;
         return new self;
+    }
+
+    /*
+    *   set active skin id
+    */
+    public static function setId($id){
+        if( self::$all === false) {
+            self::fetch();
+        }
+        $skin = collect( self::$all )->where('id',$id)->first();
+
+        if(!$skin) return;
+
+        static::set($skin['domain']);
+
+        return static::get();
+    }
+
+    /*
+    *   get all skins (domains) by id
+    */
+    public static function getById($id){
+        return collect( static::fetchIfNot()->getAll() )->where('id',$id)->all();
+    }
+
+    /*
+    *   get first skin (domains) by id
+    */
+    public static function firstById($id){
+
+        return collect( static::fetchIfNot()->getAll() )->where('id',$id)->first();
     }
 
     /*
