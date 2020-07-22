@@ -56,4 +56,17 @@ class MarketConfig extends Eloquent
         return $list;
     }
 
+    function replaceVariables($specifier,$name){
+
+        $vars = explode(',' ,$specifier );
+
+        foreach($vars as $i => $var){
+
+            $v_n = '{$'.($i+1).'}';
+
+            $name = str_replace($v_n, $var, $name );
+        }
+
+        return $name;
+    }
 }
