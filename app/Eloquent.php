@@ -143,13 +143,13 @@ class Eloquent
     /*
     *   get all ids from base key
     */
-    static function getKeysIds(){
+    static function getKeysIds($indexMerge=null){
 
         $keys = static::getAllRedisKeys();
 
         foreach($keys as $i => $key){
             
-            $keys[$i] = static::getKeyIds($key);
+            $keys[$i] = static::getKeyIds($key,$indexMerge);
         }
 
         return $keys;
