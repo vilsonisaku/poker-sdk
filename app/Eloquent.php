@@ -158,7 +158,7 @@ class Eloquent
     /*
     *   get ids from an single redis key
     */
-    static function getKeyIds($key){
+    static function getKeyIds($key,$index=null){
 
         $base_key = static::getBaseKey();
 
@@ -167,9 +167,10 @@ class Eloquent
         $ids = substr($key,$length);
         $ids = $ids ? Filter::sep( $ids ) : [];
 
-        if( isset($ids[1]) ) {
-            $ids[1] = Filter::sep( [ $ids[0],$ids[1] ] );
-            array_shift($ids);
+        if($index)
+        if( isset($ids[$index]) && isset($ids[$index-1]) ) {
+            $ids[$index] = Filter::sep( [ $ids[$index-1],$ids[$index] ] );
+            array_splice($ids,$index-1,1);
         }
         
         return $ids;
