@@ -111,7 +111,7 @@ class Eloquent
     */
     static function getAll(){
 
-        $keys_ids = static::getKeysIds();
+        $keys_ids = static::getKeysIds(1);
 
         $all = [];
 
