@@ -11,7 +11,7 @@ class PlaceBetXML {
 
     protected $log = null;
 
-    protected ArrayToXml $arrayToXml;
+    protected $arrayToXml;
 
     const PARAMS=[
         0=>'idEvent',
