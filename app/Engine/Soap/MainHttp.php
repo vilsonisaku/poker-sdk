@@ -141,3 +141,5 @@ class MainHttp
 
         return $xmlstr;
     }
+
+}

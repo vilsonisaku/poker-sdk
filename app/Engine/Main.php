@@ -44,7 +44,9 @@ class Main {
     public static function arrayToXml(){
         return new ArrayToXml( Skin::getLang(), Skin::getId() );
     }
+    
     public static function requestXml(){
         return new RequestXml( Skin::getLang(), Skin::getId() );
     }
+
 }
