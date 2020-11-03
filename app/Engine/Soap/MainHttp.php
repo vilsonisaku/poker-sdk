@@ -128,7 +128,7 @@ class MainHttp
 
         $client = new Client(['verify'=> false,'allow_redirects' => true]);
 
-        $res = $client->request( 'POST', $this->andpoint, [
+        $res = $client->request( 'POST', $this->endpoint, [
             'body'    => $xmlRequest,
             'headers' => [
                 "Content-Type" => "application/xml",
