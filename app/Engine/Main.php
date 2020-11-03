@@ -12,13 +12,19 @@ class Main {
 
     const log_channel="account";
 
+    const endpoint ="https://apistaging.altechlab.com/";
+
+    const accountEndpoint = self::endpoint."xml/service/accounting-online/invoke";
+
+    const sportsbookEndpoint = self::endpoint."xml/service/betting/invoke";
+
     public static function getSkin(){
         return Skin::class;
     }
 
     public static function accountHttp(){
         return new AccountHttp( 
-            config('app.engine_api.account'), 
+            static::accountEndpoint, 
             static::arrayToXml(),
             static::requestXml(),
             self::log_channel, 
@@ -27,7 +33,7 @@ class Main {
 
     public static function sportsbookHttp(){
         return new SportsbookHttp( 
-            config('app.engine_api.sportsbook'), 
+            static::sportsbookEndpoint, 
             static::arrayToXml(), 
             static::requestXml(), 
             self::log_channel,
