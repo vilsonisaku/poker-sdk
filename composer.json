@@ -9,7 +9,8 @@
     ],
     "require": {
 	    "php": "^7.2",
-        "predis/predis": "^1.1"
+        "predis/predis": "^1.1",
+        "spatie/array-to-xml":"^2.11"
      },
     "autoload": {
         "psr-4": {
