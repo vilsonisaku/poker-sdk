@@ -1,6 +1,6 @@
 <?php
 
-namespace ExHelp\Engine\Constants;
+namespace ExHelp\Engine;
 
 interface CHARING_FEE_METHOD{
 
@@ -589,7 +589,7 @@ interface BusinessFormulaProfitto {
 	public const AT = 46;
 }
 
-class Coupon {
+class Constants {
 
 	public const identity_type = [
         '1'=>'CARTA_DI_IDENTITA',

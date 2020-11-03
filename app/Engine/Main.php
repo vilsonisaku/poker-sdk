@@ -6,7 +6,6 @@ use ExHelp\Engine\Soap\Sportsbook\Http as SportsbookHttp;
 use App\Model\Redis\LiveEvent;
 use ExHelp\Engine\Soap\ArrayToXml;
 use ExHelp\Engine\Soap\RequestXml;
-use ExHelp\Engine\Soap\XmlClass\PlaceBetXML;
 use ExHelp\Skin;
 
 class Main {

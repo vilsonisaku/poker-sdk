@@ -3,7 +3,7 @@
 namespace ExHelp\Engine\Soap;
 
 use GuzzleHttp\Client;
-use ExHelp\Engine\Constants\Coupon;
+use ExHelp\Engine\Constants;
 use ExHelp\Engine\Soap\ArrayToXml;
 use ExHelp\Engine\Soap\RequestXml;
 use ExHelp\Engine\Soap\XmlClass\PlaceBetXML;
@@ -106,7 +106,7 @@ class MainHttp
         }
 
         if ($simpleXml->resultCode != "0" || $all) {
-            $simpleXml->message = Coupon::accountApi[$simpleXml->resultCode];
+            $simpleXml->message = Constants::accountApi[$simpleXml->resultCode];
             return json_decode(json_encode($simpleXml), true);
         }
 
