@@ -15,9 +15,11 @@ class Main {
     /*
     *   Load skin class
     */
-    public static function skin(){ // 6 = euro
+    public static function skin($skin_id=null){ // 6 = euro
 
-        return new Casino(static::endpoint,static::getToken(),static::getSkinId(),static::getCurrencyId() );
+        $skin_id = $skin_id?$skin_id:static::getSkinId();
+
+        return new Casino(static::endpoint,static::getToken(),$skin_id,static::getCurrencyId() );
     }
 
     /*
