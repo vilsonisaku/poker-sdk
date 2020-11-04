@@ -1,5 +1,5 @@
 <?php
-namespace ExHelp\Engine\Soap;
+namespace Engine\Soap;
 
 use Spatie\ArrayToXml\ArrayToXml as ArrayToXmlDefault;
 

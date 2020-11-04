@@ -1,5 +1,5 @@
 <?php
-namespace ExHelp\Engine\Soap;
+namespace Engine\Soap;
 
 /*
  * Class to convert Class to XML

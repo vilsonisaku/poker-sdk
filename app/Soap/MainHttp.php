@@ -1,12 +1,12 @@
 <?php
 
-namespace ExHelp\Engine\Soap;
+namespace Engine\Soap;
 
 use GuzzleHttp\Client;
-use ExHelp\Engine\Constants;
-use ExHelp\Engine\Soap\ArrayToXml;
-use ExHelp\Engine\Soap\RequestXml;
-use ExHelp\Engine\Soap\XmlClass\PlaceBetXML;
+use Engine\Constants;
+use Engine\Soap\ArrayToXml;
+use Engine\Soap\RequestXml;
+use Engine\Soap\XmlClass\PlaceBetXML;
 
 /**
  *

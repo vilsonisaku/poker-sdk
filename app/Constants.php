@@ -1,6 +1,6 @@
 <?php
 
-namespace ExHelp\Engine;
+namespace Engine;
 
 interface CHARING_FEE_METHOD{
 
@@ -776,7 +776,7 @@ class Constants {
 	];
 
 	public static function getAccountApi($code){
-		return isset(self::accountApi[$code])? self::accountApi[$code]: self::NO_CODE_FOUND;
+		return isset(self::accountApi[$code]) ? self::accountApi[$code] : self::NO_CODE_FOUND;
 	}
 
     public const accountApi = [

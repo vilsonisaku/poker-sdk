@@ -1,6 +1,6 @@
 {
-    "name": "external/helper",
-    "description": "external classes helper",
+    "name": "engine/sdk",
+    "description": "Betting system engine integration classes",
     "authors": [
         {
             "name": "vilson",
@@ -14,7 +14,7 @@
      },
     "autoload": {
         "psr-4": {
-            "ExHelp\\": "app/"
+            "Engine\\": "app/"
         }
     }
 }

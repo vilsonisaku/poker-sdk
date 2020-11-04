@@ -1,8 +1,8 @@
 <?php
 
-namespace ExHelp\Engine\Soap\Account;
+namespace Engine\Soap\Account;
 
-use ExHelp\Engine\Soap\MainHttp;
+use Engine\Soap\MainHttp;
 
 /**
  *

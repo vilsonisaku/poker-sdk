@@ -1,7 +1,7 @@
 <?php
-namespace ExHelp\Engine\Soap\Sportsbook;
+namespace Engine\Soap\Sportsbook;
 
-use ExHelp\Engine\Soap\MainHttp;
+use Engine\Soap\MainHttp;
 
 /**
  *

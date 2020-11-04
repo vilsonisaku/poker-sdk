@@ -1,6 +1,6 @@
 <?php
 
-namespace ExHelp\Engine\Soap;
+namespace Engine\Soap;
 
 
 /**

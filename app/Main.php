@@ -1,12 +1,12 @@
 <?php
-namespace ExHelp\Engine;
+namespace Engine;
 
-use ExHelp\Engine\Soap\Account\Http as AccountHttp;
-use ExHelp\Engine\Soap\Sportsbook\Http as SportsbookHttp;
+use Engine\Soap\Account\Http as AccountHttp;
+use Engine\Soap\Sportsbook\Http as SportsbookHttp;
 use App\Model\Redis\LiveEvent;
-use ExHelp\Engine\Soap\ArrayToXml;
-use ExHelp\Engine\Soap\RequestXml;
-use ExHelp\Skin;
+use Engine\Soap\ArrayToXml;
+use Engine\Soap\RequestXml;
+use App\Model\Skin;
 
 class Main {
 
@@ -18,8 +18,12 @@ class Main {
 
     const sportsbookEndpoint = self::endpoint."xml/service/betting/invoke";
 
-    public static function getSkin(){
-        return Skin::class;
+    public static function getLang(){
+        return Skin::getLang();
+    }
+
+    public static function getSkinId(){
+        return Skin::getId();
     }
 
     public static function accountHttp(){
@@ -42,11 +46,11 @@ class Main {
     }
 
     public static function arrayToXml(){
-        return new ArrayToXml( Skin::getLang(), Skin::getId() );
+        return new ArrayToXml( static::getLang(), static::getSkinId() );
     }
     
     public static function requestXml(){
-        return new RequestXml( Skin::getLang(), Skin::getId() );
+        return new RequestXml( static::getLang(), static::getSkinId() );
     }
 
 }
