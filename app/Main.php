@@ -15,16 +15,29 @@ class Main {
     /*
     *   Load skin class
     */
-    public static function skin($token,$id,$currency_id=6){ // 6 = euro
+    public static function skin(){ // 6 = euro
 
-        return new Casino(static::endpoint,$token,$id,$currency_id);
+        return new Casino(static::endpoint,static::getToken(),static::getSkinId(),static::getCurrencyId() );
     }
 
     /*
     *   Load provider class
     */
-    public static function provider($token){
+    public static function provider(){
 
-        return new Provider(static::endpoint,$token);
+        return new Provider(static::endpoint,static::getToken());
     }
+
+    public static function getToken(){
+        return "";
+    }
+
+    public static function getSkinId(){
+        return null;
+    }
+
+    public static function getCurrencyId(){
+        return 6;
+    }
+
 }
