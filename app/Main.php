@@ -47,8 +47,8 @@ class Main {
             static::arrayToXml(),
             static::requestXml(),
             static::getToken(),
-            static::getAttributes(),
             self::log_channel, 
+            static::getAttributes(),
         );
     }
 
@@ -58,8 +58,8 @@ class Main {
             static::arrayToXml(), 
             static::requestXml(), 
             static::getToken(),
-            static::getAttributes(),
             self::log_channel,
+            static::getAttributes(),
             LiveEvent::class 
         );
     }
