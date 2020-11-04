@@ -3,12 +3,13 @@
 namespace ExHelp\Engine\Soap\Microgame;
 
 use GuzzleHttp\Client;
+use Engine\Soap\MainHttp;
 
 /**
  *
  * @author Http
  */
-class Http
+class Http extends MainHttp
 {
     const prod_client_id = 'DB27C9DE-56C8-43F2-880F-DBBB76401E0B';
     const prod_client_secret = '';
@@ -166,8 +167,8 @@ class Http
                 'whr'=> self::skin_endpoint,
                 'wreply'=> (self::casino_game_url.$game_id),
             ]),
-            'token'=> session('token'),
-            'username'=> session('username'),
+            'token'=> $this->token,
+            'username'=> $this->data['username'],
             'sessionDuration'=> 30,
             // 'serviceCode'=>'PSV'
         ];
@@ -182,8 +183,8 @@ class Http
                 'whr'=> self::skin_endpoint,
                 'wreply'=> self::poker_web,
             ]),
-            'token'=> session('token'),
-            'username'=> session('username'),
+            'token'=> $this->token,
+            'username'=> $this->data['username'],
             'sessionDuration'=> 30,
             // 'serviceCode'=>'PSV'
         ];
@@ -229,8 +230,8 @@ class Http
                 'whr'=> self::skin_endpoint,
                 'wreply'=> $wreply,
             ]),
-            'token'=> session('token'),
-            'username'=> session('username'),
+            'token'=> $this->token,
+            'username'=> $this->data['username'],
             'sessionDuration'=> 30,
             // 'serviceCode'=>'PSV'
         ];

@@ -247,7 +247,7 @@ class Http extends MainHttp
                 'command' => 'getNicknames',
             ],
             [
-                'ssoToken' => session('token'),
+                'ssoToken' => $this->token,
             ]
         );
 
@@ -270,7 +270,7 @@ class Http extends MainHttp
                 'xmlns:xsi' => 'http://www.w3.org/2001/XMLSchema-instance',
                 'xsi:type'  => 'registerNicknameByTokenRequest',
             ],
-            'ssoToken' => session('token'),
+            'ssoToken' => $this->token,
             'idNetwork' => $idNetwork,
             'nickname' => $nickname,
         ];
@@ -297,7 +297,7 @@ class Http extends MainHttp
                 'xmlns:xsi' => 'http://www.w3.org/2001/XMLSchema-instance',
                 'xsi:type'  => 'registerNicknameByTokenRequest',
             ],
-            'ssoToken' => session('token'),
+            'ssoToken' => $this->token,
             'idNetwork' => 53,
             'nickname' => "",
             'transferValue' => $transferValue,
@@ -322,7 +322,7 @@ class Http extends MainHttp
                 'xmlns:xsi' => 'http://www.w3.org/2001/XMLSchema-instance',
                 'xsi:type'  => 'registerNicknameByTokenRequest',
             ],
-            'ssoToken' => $token? $token: session('token'),
+            'ssoToken' => $token? $token: $this->token,
             'idNetwork' => 68,
             'nickname' => "",
             'transferValue' => $transferValue,
@@ -447,7 +447,7 @@ class Http extends MainHttp
             'command' => 'updateSelfLimit',
         ], [
             'xsi'      => ['xsi:type' => 'updateSelfLimitRequest'],
-            'ssoToken' => session('token'),
+            'ssoToken' => $this->token,
             'type'     => $type, // 1
             'period'   => $period, // 30
             'value'   => $value, // integer
@@ -532,7 +532,7 @@ class Http extends MainHttp
                 'command' => 'getAllowance',
             ],
             [
-                'ssoToken' => session('token'),
+                'ssoToken' => $this->token,
             ]
         );
 
@@ -549,7 +549,7 @@ class Http extends MainHttp
                 'command' => 'changeAllowance',
             ],
             [
-                'ssoToken' => session('token'),
+                'ssoToken' => $this->token,
                 // 'allowance'=>[
                 // '_attributes'=>[
                 'newsletter' => $newsletter,
@@ -986,7 +986,7 @@ class Http extends MainHttp
             'command' => 'closeWithdrawal',
         ], [
             'idWithDrawal' => $idWithDrawal,
-            'idPVR'     => session('idEntityStaff'),
+            'idPVR'     => $this->data['idEntityStaff'],
         ]);
 
         $xmlstr = $this->post($xmlRequest);
@@ -1061,7 +1061,7 @@ class Http extends MainHttp
         $xmlRequest = $this->arrayToXml->convert([
             'command' => 'depot',
         ], [
-            'ssoToken' => session('token'), // string
+            'ssoToken' => $this->token, // string
             'amount' => $amount, // int
             'type' => $type, // byte
             'extra' => $extra,
@@ -1079,7 +1079,7 @@ class Http extends MainHttp
         $xmlRequest = $this->arrayToXml->convert([
             'command' => 'reportAggi',
         ], [
-            'idEntiy' => session('idEntityStaff'), // int
+            'idEntiy' => $this->data['idEntityStaff'], // int
             'period' => $params->period, // byte
             'from' => $params->from,
             'to' => $params->to,
@@ -1098,7 +1098,7 @@ class Http extends MainHttp
         $xmlRequest = $this->arrayToXml->convert([
             'command' => 'recalcAggio',
         ], [
-            'idEntiy' => session('idEntityStaff'), // int
+            'idEntiy' => $this->data['idEntityStaff'], // int
             'idAggio' => $idAggio, // byte
         ]);
 
@@ -1397,7 +1397,7 @@ class Http extends MainHttp
         $xmlRequest = $this->arrayToXml->convert([
             'command' => 'withdrawal',
         ], [
-            'ssoToken' => session('token'), // string
+            'ssoToken' => $this->token, // string
             'amount' => $amount, // int
             'type' => $type, // byte
             'extra' => $extra,
@@ -1419,7 +1419,7 @@ class Http extends MainHttp
         $xmlRequest = $this->arrayToXml->convert([
             'command' => 'withdrawalCancel',
         ], [
-            'ssoToken' => session('token'), // string
+            'ssoToken' => $this->token, // string
             'idWithdrawal' => $id, // int
         ]);
 

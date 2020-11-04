@@ -18,12 +18,27 @@ class Main {
 
     const sportsbookEndpoint = self::endpoint."xml/service/betting/invoke";
 
+    // may need to override
     public static function getLang(){
         return Skin::getLang();
     }
 
+    // may need to override
     public static function getSkinId(){
         return Skin::getId();
+    }
+
+    // may need to override
+    public static function getToken(){
+        return session('token');
+    }
+
+    // may need to override
+    public static function getAttributes(){
+        return [
+            'idEntityStaff'=>session('idEntityStaff'),
+            'username'=> session('username'),
+        ];
     }
 
     public static function accountHttp(){
@@ -31,6 +46,8 @@ class Main {
             static::accountEndpoint, 
             static::arrayToXml(),
             static::requestXml(),
+            static::getToken(),
+            static::getAttributes(),
             self::log_channel, 
         );
     }
@@ -40,6 +57,8 @@ class Main {
             static::sportsbookEndpoint, 
             static::arrayToXml(), 
             static::requestXml(), 
+            static::getToken(),
+            static::getAttributes(),
             self::log_channel,
             LiveEvent::class 
         );

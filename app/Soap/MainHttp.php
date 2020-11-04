@@ -14,6 +14,8 @@ use Engine\Soap\XmlClass\PlaceBetXML;
  */
 class MainHttp
 {
+    protected $token;
+
     protected $endpoint;
     protected $liveEventModel;
     protected $arrayToXml;
@@ -24,10 +26,13 @@ class MainHttp
     protected $log;
 
     protected $code = 200;
+    protected $data = [];
 
 
-    function __construct($endpoint,ArrayToXml $arrayToXml,RequestXml $requestXml,$log_channel,$liveEventModel=null)
+    function __construct($endpoint,ArrayToXml $arrayToXml,RequestXml $requestXml,$token=null,$log_channel,$data=[],$liveEventModel=null)
     {
+        $this->data = $data;   
+        $this->token = $token;   
         $this->endpoint = $endpoint;   
         $this->log_channel = $log_channel;   
         $this->liveEventModel = $liveEventModel;   
