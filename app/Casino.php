@@ -33,7 +33,7 @@ class Casino {
     */
     public function getPlayers(){
 
-        $url = $this->endpoint.self::PLAYERS;
+        $url = $this->endpoint.static::PLAYERS;
 
         $response = (new Client)->get( $url , [
             'query' => [
@@ -51,7 +51,7 @@ class Casino {
     */
     public function getPlayer($player_id){
 
-        $url = $this->endpoint.self::PLAYER;
+        $url = $this->endpoint.static::PLAYER;
 
         $response = (new Client)->get( $url , [
             'query' => [
@@ -70,7 +70,7 @@ class Casino {
     */
     public function createPlayer($nickname,$username,$email,$password){
 
-        $url = $this->endpoint.self::PLAYER;
+        $url = $this->endpoint.static::PLAYER;
 
         $response = (new Client)->post( $url , [
             'query' => [

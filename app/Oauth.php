@@ -5,7 +5,7 @@ use GuzzleHttp\Client;
 
 class Oauth {
 
-    const oauth_token = 'oauth/token';
+    const OAUTH_TOKEN = 'oauth/token';
 
     protected $endpoint;
     protected $client_id;
@@ -23,7 +23,7 @@ class Oauth {
     */
     function login($username,$password){
 
-        $response = (new Client)->post( $this->endpoint.self::oauth_token , [
+        $response = (new Client)->post( $this->endpoint.self::OAUTH_TOKEN , [
             'form_params' => [
                 'username' => $username,
                 'password' => $password,
@@ -42,7 +42,7 @@ class Oauth {
     */
     function refreshToken($refresh_token){
 
-        $response = (new Client)->post( $this->endpoint.self::oauth_token  , [
+        $response = (new Client)->post( $this->endpoint.self::OAUTH_TOKEN  , [
             'form_params' => [
                 'grant_type' => 'refresh_token',
                 'refresh_token' => $refresh_token,

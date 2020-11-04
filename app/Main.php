@@ -12,11 +12,17 @@ class Main {
     }
 
 
+    /*
+    *   Load skin class
+    */
     public static function skin($token,$id,$currency_id=6){ // 6 = euro
 
         return new Casino(static::endpoint,$token,$id,$currency_id);
     }
 
+    /*
+    *   Load provider class
+    */
     public static function provider($token){
 
         return new Provider(static::endpoint,$token);
