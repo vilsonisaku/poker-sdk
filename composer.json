@@ -1,6 +1,6 @@
 {
-    "name": "external/engine-sdk",
-    "description": "Betting system engine integration classes",
+    "name": "external/poker-sdk",
+    "description": "Poker system engine integration classes",
     "authors": [
         {
             "name": "vilson",
@@ -14,7 +14,7 @@
      },
     "autoload": {
         "psr-4": {
-            "Engine\\": "app/"
+            "Poker\\": "app/"
         }
     }
 }
