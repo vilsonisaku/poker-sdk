@@ -1,5 +1,5 @@
 {
-    "name": "engine/sdk",
+    "name": "engine-sdk",
     "description": "Betting system engine integration classes",
     "authors": [
         {
