@@ -106,7 +106,7 @@ class MainHttp
         }
 
         if ($simpleXml->resultCode != "0" || $all) {
-            $simpleXml->message = Constants::accountApi[$simpleXml->resultCode];
+            $simpleXml->message = Constants::getAccountApi($simpleXml->resultCode);
             return json_decode(json_encode($simpleXml), true);
         }
 

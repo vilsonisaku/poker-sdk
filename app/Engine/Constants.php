@@ -775,6 +775,9 @@ class Constants {
         842=>"PAY_VOUCHER_CASHBACK",
 	];
 
+	public static function getAccountApi($code){
+		return isset(self::accountApi[$code])? self::accountApi[$code]: self::NO_CODE_FOUND;
+	}
 
     public const accountApi = [
         0=>"success",
@@ -1194,8 +1197,10 @@ class Constants {
 	}
 	
 	static function getCodeName($id){
-		return isset( self::ALL[$id] ) ? self::ALL[$id] : "Qualcosa non è andata a buon fine";
+		return isset( self::ALL[$id] ) ? self::ALL[$id] : self::NO_CODE_FOUND;
 	}
+
+	const NO_CODE_FOUND = "Qualcosa non è andata a buon fine";
 }
 
 
