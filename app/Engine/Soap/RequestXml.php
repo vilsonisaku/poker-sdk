@@ -92,22 +92,23 @@ class RequestXml
 
   public $signature;
 
-  public $lang;
-  public $skin_id;
-  public $version;
+  protected $hidden=[];
 
 
   function fill($header=[],$body=[],$signature=[]){
-    $this->header = new Header($header,$this->lang,$this->skin_id,$this->version);
+    $values = $this->hidden;
+    $this->header = new Header( $header, $values['lang'], $values['skin_id'], $values['version'] );
     $this->input = new Input($body);
     $this->signature = new Signature($signature);
     return $this->Convert();
   }
 
   function __construct($lang=[],$skin_id=[],$version='1.0.0'){
-    $this->lang = $lang;
-    $this->skin_id = $skin_id;
-    $this->version = $version;
+    $this->hidden = [
+       'lang'=>$lang,
+       'skin_id'=>$skin_id,
+       'version'=>$version,
+    ];
   }
   // function __construct($header=[],$body=[],$signature=[]){
   //   $this->header = new Header($header);
@@ -133,6 +134,7 @@ class RequestXml
 
   private function ReadProperty($xmlElement, $object, $xml,$parent=null) {
       foreach ($object as $key => $value) {
+          if($key==='hidden') continue;
           if ($value != null) {
               if (is_object($value)) {
                   $element = $xml->createElement($key);
