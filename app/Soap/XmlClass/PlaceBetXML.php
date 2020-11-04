@@ -1,7 +1,7 @@
 <?php
-namespace ExHelp\Engine\Soap\XmlClass;
+namespace Engine\Soap\XmlClass;
 
-use ExHelp\Engine\Soap\ArrayToXml;
+use Engine\Soap\ArrayToXml;
 /**
  * Description of PlaceBetXML
  *
