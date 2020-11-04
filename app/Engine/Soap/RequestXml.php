@@ -2,7 +2,6 @@
 
 namespace ExHelp\Engine\Soap;
 
-use App\Model\Skin;
 
 /**
   * Create Header class
@@ -29,8 +28,8 @@ class Header
   {
     $this->idMessageTransaction = (int) (microtime(true) * 1000000000);
 
-    $this->idOperator = $lang;
-    $this->locale = $skin_id;
+    $this->idOperator = $skin_id;
+    $this->locale = $lang;
     $this->version = $version;
 
     foreach ($header as $key => $value) {
