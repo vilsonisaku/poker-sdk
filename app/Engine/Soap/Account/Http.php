@@ -315,6 +315,32 @@ class Http extends MainHttp
         return $this->parseXml($xmlstr);
     }
 
+    public function transferPokerMoney($transferValue,$token=null)
+    {
+        $body = [ 
+            '_attributes' => [
+                'xmlns:xsi' => 'http://www.w3.org/2001/XMLSchema-instance',
+                'xsi:type'  => 'registerNicknameByTokenRequest',
+            ],
+            'ssoToken' => $token? $token: session('token'),
+            'idNetwork' => 68,
+            'nickname' => "",
+            'transferValue' => $transferValue,
+        ];
+
+        $xmlRequest = $this->arrayToXml->convert(
+            [
+                'command' => 'registerNickname',
+            ],
+            $body
+        );
+
+        $xmlstr = $this->post($xmlRequest);
+
+        return $this->parseXml($xmlstr);
+    }
+
+
     /**
      * http get skin config request
      */
