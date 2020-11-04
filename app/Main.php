@@ -10,7 +10,7 @@ use ExHelp\Skin;
 
 class Main {
 
-    const log_channel="account";
+    const log_channel=null;
 
     const endpoint ="https://apistaging.altechlab.com/";
 
