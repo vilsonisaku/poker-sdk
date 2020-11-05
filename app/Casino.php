@@ -49,14 +49,14 @@ class Casino {
     /*
     *   Get player by id
     */
-    public function getPlayer($player_id){
+    public function getPlayer($idOrUsername,$key="id"){
 
         $url = $this->endpoint.static::PLAYER;
 
         $response = (new Client)->get( $url , [
             'query' => [
                 'skin_id' => $this->id,
-                'id' => $player_id,
+                $key => $idOrUsername,
             ],
             'headers'=> $this->getHeaders()
         ]);
