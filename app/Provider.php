@@ -7,7 +7,7 @@ class Provider {
 
     const SKINS = 'api/skins';
     const CURRENCIES = 'api/currencies';
-    const CASINO = 'api/skin';
+    const CASINO_ID = 'api/skin/id';
 
     protected $endpoint;
     protected $token;
@@ -46,12 +46,27 @@ class Provider {
     */
     public function getSkinIdByDomain($domain){
 
-        $url = $this->endpoint.static::CASINO;
+        $url = $this->endpoint.static::CASINO_ID;
 
         $response = (new Client)->get( $url , [
             'query' => [
                 'domain' => $domain,
             ],
+            'headers'=> $this->getHeaders()
+        ]);
+
+        return json_decode($response->getBody()->getContents());
+    }
+
+
+    /*
+    *   Get list of currencies
+    */
+    public function getCurrencies(){
+
+        $url = $this->endpoint.static::CURRENCIES;
+
+        $response = (new Client)->get( $url , [
             'headers'=> $this->getHeaders()
         ]);
 
