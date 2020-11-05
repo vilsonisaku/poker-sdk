@@ -2,28 +2,16 @@
 namespace Poker;
 
 use GuzzleHttp\Client;
+use Poker\AuthHttp;
 
-class Provider {
+class Provider extends AuthHttp {
 
-    const SKINS = 'api/skins';
-    const CURRENCIES = 'api/currencies';
-    const CASINO_ID = 'api/skin/id';
-
-    protected $endpoint;
-    protected $token;
 
     function __construct($endpoint,$token)
     {
         $this->endpoint = $endpoint;
         $this->token = $token;
     }
-
-    public function getHeaders(){
-        return [
-            'Authorization'=>'Bearer '.$this->token,
-        ];
-    }
-
 
 
     /*
@@ -37,7 +25,7 @@ class Provider {
             'headers'=> $this->getHeaders()
         ]);
 
-        return $response->json();
+        return json_decode( $response->getBody(), true );
     }
 
 
@@ -55,7 +43,7 @@ class Provider {
             'headers'=> $this->getHeaders()
         ]);
 
-        return $response->json();
+        return json_decode( $response->getBody(), true );
     }
 
 
@@ -70,7 +58,7 @@ class Provider {
             'headers'=> $this->getHeaders()
         ]);
 
-        return $response->json();
+        return json_decode( $response->getBody(), true );
     }
 
 }
