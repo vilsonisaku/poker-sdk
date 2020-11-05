@@ -33,7 +33,7 @@ class Oauth {
             ]
         ]);
 
-        return $response->json();
+        return json_decode( $response->getBody(), true );
     }
 
 
@@ -51,7 +51,7 @@ class Oauth {
             ]
         ]);
 
-        return $response->json();
+        return json_decode( $response->getBody(), true );
     }
 
 }
