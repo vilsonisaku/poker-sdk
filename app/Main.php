@@ -4,9 +4,24 @@ namespace Poker;
 class Main {
 
     const endpoint ="https://admin-poker.islacode.com/skin/";
+    
+    protected static $client_id;
+    protected static $client_secret;
 
 
-    public static function oauth($client_id,$client_secret){
+    public static function getClientId(){
+        return self::$client_id;
+    }
+
+    public static function getClientSecret(){
+        return self::$client_secret;
+    }
+
+    public static function oauth($client_id=null,$client_secret=null){
+
+        $client_id = $client_id ? :self::getClientId();
+
+        $client_secret = $client_secret ? :self::getClientSecret();
 
         return new Oauth(static::endpoint,$client_id,$client_secret);
     }
