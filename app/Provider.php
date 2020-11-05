@@ -37,7 +37,7 @@ class Provider {
             'headers'=> $this->getHeaders()
         ]);
 
-        return json_decode($response->getBody()->getContents());
+        return $response->json();
     }
 
 
@@ -55,7 +55,7 @@ class Provider {
             'headers'=> $this->getHeaders()
         ]);
 
-        return json_decode($response->getBody()->getContents());
+        return $response->json();
     }
 
 
@@ -70,7 +70,7 @@ class Provider {
             'headers'=> $this->getHeaders()
         ]);
 
-        return json_decode($response->getBody()->getContents());
+        return $response->json();
     }
 
 }

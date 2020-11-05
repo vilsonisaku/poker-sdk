@@ -42,7 +42,7 @@ class Casino {
             'headers'=> $this->getHeaders()
         ]);
 
-        return json_decode($response->getBody()->getContents());
+        return $response->json();
     }
 
 
@@ -61,7 +61,7 @@ class Casino {
             'headers'=> $this->getHeaders()
         ]);
 
-        return json_decode($response->getBody()->getContents());
+        return $response->json();
     }
 
 
@@ -84,7 +84,7 @@ class Casino {
             'headers'=> $this->getHeaders()
         ]);
 
-        return json_decode($response->getBody()->getContents());
+        return $response->json();
     }
 
 }
